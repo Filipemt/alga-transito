@@ -16,6 +16,7 @@ public class ProprietarioController {
 
     @GetMapping("/proprietarios")
     public List<Proprietario> list() {
-        return proprietarioRepository.findAll();
+        return proprietarioRepository.findByNameContaining("ta");
+        // return proprietarioRepository.findAll();
     }
 }
