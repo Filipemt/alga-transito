@@ -3,6 +3,8 @@ package com.algaworks.algatransito.api.controller;
 import com.algaworks.algatransito.domain.model.Proprietario;
 import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,19 @@ public class ProprietarioController {
     @ResponseStatus(HttpStatus.CREATED)
     public Proprietario adicionar(@RequestBody Proprietario proprietario) {
         return proprietarioRepository.save(proprietario);
+    }
+
+    @PutMapping("/{proprietarioId}")
+    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId, @RequestBody Proprietario proprietario) {
+
+        if (!proprietarioRepository.existsById(proprietarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        proprietario.setId(proprietarioId);
+        Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
+
+        return ResponseEntity.ok(proprietarioAtualizado);
     }
 
 
