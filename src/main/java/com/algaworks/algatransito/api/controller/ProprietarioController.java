@@ -39,7 +39,6 @@ public class ProprietarioController {
 
     @PutMapping("/{proprietarioId}")
     public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId, @RequestBody Proprietario proprietario) {
-
         if (!proprietarioRepository.existsById(proprietarioId)) {
             return ResponseEntity.notFound().build();
         }
@@ -48,6 +47,16 @@ public class ProprietarioController {
         Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
 
         return ResponseEntity.ok(proprietarioAtualizado);
+    }
+
+    @DeleteMapping("/{proprietarioId}")
+    public ResponseEntity<Void> remover(@PathVariable Long proprietarioId) {
+        if (!proprietarioRepository.existsById(proprietarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        proprietarioRepository.deleteById(proprietarioId);
+        return ResponseEntity.noContent().build();
     }
 
 
