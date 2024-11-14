@@ -5,8 +5,6 @@ import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
 import com.algaworks.algatransito.domain.service.RegistroProprietarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +39,8 @@ public class ProprietarioController {
     }
 
     @PutMapping("/{proprietarioId}")
-    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId, @RequestBody Proprietario proprietario) {
+    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId,
+                                                  @Valid @RequestBody Proprietario proprietario) {
         if (!proprietarioRepository.existsById(proprietarioId)) {
             return ResponseEntity.notFound().build();
         }
