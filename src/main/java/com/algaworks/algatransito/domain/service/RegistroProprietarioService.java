@@ -13,6 +13,12 @@ public class RegistroProprietarioService {
 
     private final ProprietarioRepository proprietarioRepository;
 
+    public Proprietario buscar(Long proprietarioId) {
+        return proprietarioRepository.findById(proprietarioId)
+                .orElseThrow(() -> new NegocioException("Proprietário não encontrado!"));
+
+    }
+
     @Transactional
     public Proprietario salvar(Proprietario proprietario) {
         // Se o proprietário retornado pelo FindByEmail, se ele for o mesmo proprietário que estamos recebendo como argumento, quer dizer que podemos ignorar (para atualização)
